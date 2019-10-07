@@ -47,8 +47,21 @@ public class IPV4 {
             oct1 = oct1 / 2;
         }
 
-        //Acquire that first octet and store it.
+        //Acquire that first octet out of the stack and store it.
         for (int i = 0; i <= 7; i++) {
+            address[i] = stack.pop();
+        }
+
+        //Convert the second octet to binary.
+        for(int i = 8; i <= 15; i++)
+        {
+            remainder = oct2 % 2;
+            stack.push(remainder);
+            oct2 = oct2 / 2;
+        }
+
+        //Get the second octet out of the stack
+        for (int i = 8; i <= 15; i++) {
             address[i] = stack.pop();
         }
     }
