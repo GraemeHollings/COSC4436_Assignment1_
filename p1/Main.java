@@ -26,7 +26,7 @@ public class Main {
         int t = 32 - n;
 
         //Getting the network address by going through the binary number.
-        for (i = 0; i <= (31 - t); i++) {
+        for (i = 0; i <= 31; i++) {
 
             networkAddr[i] = bin[i];
             broadcastAddr[i] = bin[i];
