@@ -1,5 +1,7 @@
 package p1;
 
+import java.util.Stack;
+
 public class IPV4 {
 
     private String givenIP;
@@ -17,17 +19,42 @@ public class IPV4 {
         this.givenIP = givenIP;
     }
 
+    //This method converts the address to binary
     public static int[] convertToBinary(String[] givenIP)
     {
         int address[] = new int[32];
-        int oct1, oct2, oct3, oct4, x, remainder;
+        int oct1, oct2, oct3, oct4, remainder;
+        oct1 = oct2 = oct3 = oct4 = 1;
+        Stack<Integer> stack = new Stack<Integer>();
 
+        //Splitting up each of the given octets into variables.
+        //When we receive the string array of the given ip, it should be the 4 octets
+        //split up into an array of size 4, where each element is an octet.
+        if (givenIP != null)
+        {
+            oct1 = Integer.parseInt(givenIP[0]);
+            oct2 = Integer.parseInt(givenIP[1]);
+            oct3 = Integer.parseInt(givenIP[2]);
+            oct4 = Integer.parseInt(givenIP[3]);
+        }
 
+        // convert first octet to binary
+        for (int i = 0; i <= 7; i++)
+        {
+            //Each digit is pushed onto the stack
+            remainder = oct1 % 2;
+            stack.push(remainder);
+            oct1 = oct1 / 2;
+        }
 
+        //Acquire that first octet and store it.
+        for (int i = 0; i <= 7; i++) {
+            address[i] = stack.pop();
+        }
     }
 
 
-
+    //This method finds that class of a given IP Address.
     public static String findClass(String givenIP)
     {
        int index = givenIP.indexOf(".");
