@@ -22,7 +22,7 @@ public class IPV4 {
     //This method converts the address to binary
     public static int[] convertToBinary(String[] givenIP)
     {
-        int address[] = new int[32];
+        int[] address = new int[32];
         int oct1, oct2, oct3, oct4, remainder;
         oct1 = oct2 = oct3 = oct4 = 1;
         Stack<Integer> stack = new Stack<Integer>();
@@ -60,10 +60,38 @@ public class IPV4 {
             oct2 = oct2 / 2;
         }
 
-        //Get the second octet out of the stack
+        //Get the second octet out of the stack and store it
         for (int i = 8; i <= 15; i++) {
             address[i] = stack.pop();
         }
+
+        //Convert the third octet to binary.
+        for(int i = 16; i <= 23; i++)
+        {
+            remainder = oct3 % 2;
+            stack.push(remainder);
+            oct3 = oct3 / 2;
+        }
+
+        //Get the third octet out of the stack and store it.
+        for (int i = 16; i <= 23; i++) {
+            address[i] = stack.pop();
+        }
+
+        //Convert the fourth octet to binary.
+        for(int i = 24; i <= 31; i++)
+        {
+            remainder = oct4 % 2;
+            stack.push(remainder);
+            oct4 = oct4 / 2;
+        }
+
+        //Get the fourth octet out of the stack and store it.
+        for (int i = 24; i <= 31; i++) {
+            address[i] = stack.pop();
+        }
+
+        return (address);
     }
 
 
