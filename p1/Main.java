@@ -24,19 +24,25 @@ public class Main {
         int[] broadcastAddr = new int[32];
         int bitsInHost;
         int bitsInNetwork;
+        String subnet = "";
 
         switch (IPClass) {
             case "A": {
                 hostPortion = Arrays.copyOfRange(bin, 9, 32);
+
+                subnet = "255.0.0.0";
                 break;
             }
             case "B": {
                 hostPortion = Arrays.copyOfRange(bin, 17, 32);
 
+                subnet = "255.255.0.0";
                 break;
             }
             case "C": {
                 hostPortion = Arrays.copyOfRange(bin, 25, 32);
+
+                subnet = "255.255.255.0";
                 break;
             }
 
@@ -62,6 +68,10 @@ public class Main {
             networkAddr[i] = 0;
         }
 
+        for(int i = 0; i < broadcastAddr.length; i++)
+        {
+            broadcastAddr[i] = 1;
+        }
 
 
         //Converting the network address to decimal
@@ -72,20 +82,18 @@ public class Main {
 
 
 
-        System.out.println("Network Class: " + IPClass);
+        System.out.println("Network Class: " + IPClass + "\n");
 
-
-
-        //System.out.println("Subnet: " + subnet[0] + "." + subnet[1] + "." + subnet[2] + "." + subnet[3] );
+        System.out.println("Subnet Mask: " + subnet + "\n");
 
         System.out.println("Network Address : " + decimalNetworkAddr[0]
-                + "." + decimalNetworkAddr[1] + "." + decimalNetworkAddr[2] + "." + decimalNetworkAddr[3]);
+                + "." + decimalNetworkAddr[1] + "." + decimalNetworkAddr[2] + "." + decimalNetworkAddr[3] + "\n");
 
         System.out.println("Broadcast Address : "
-                + decimalBroadcastAddr[0] + "." + decimalBroadcastAddr[1] + "." + decimalBroadcastAddr[2] + "." + decimalBroadcastAddr[3]);
+                + decimalBroadcastAddr[0] + "." + decimalBroadcastAddr[1] + "." + decimalBroadcastAddr[2] + "." + decimalBroadcastAddr[3] + "\n");
 
-        System.out.println("Bits in Host: " + bitsInHost);
-        System.out.println("Bits in Network: " + bitsInNetwork);
+        System.out.println("Bits in Host: " + bitsInHost + "\n");
+        System.out.println("Bits in Network: " + bitsInNetwork + "\n");
 
     }
 
