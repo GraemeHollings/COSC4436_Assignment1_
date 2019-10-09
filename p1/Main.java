@@ -1,6 +1,6 @@
 package p1;
 
-import java.sql.SQLOutput;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,6 +9,14 @@ public class Main {
     public static void main(String[] args) {
         String[] str = new String[4];
         int[] bin = new int[32];
+        int[] hostPortion = new int[32];
+        int[] networkAddr = new int[32];
+        int[] broadcastAddr = new int[32];
+        int bitsInHost;
+        int bitsInNetwork;
+        double hostsPerSubnet = 0;
+        String subnet = "";
+        String CIDR = "";
 
         Scanner input =  new Scanner(System.in);
         System.out.println("Please enter an IP Address.");
@@ -19,30 +27,28 @@ public class Main {
         String[] str1 = givenIp.split("/");
 
         String IPClass = IPV4.findClass(givenIp);
-        int[] hostPortion = new int[32];
-        int[] networkAddr = new int[32];
-        int[] broadcastAddr = new int[32];
-        int bitsInHost;
-        int bitsInNetwork;
-        String subnet = "";
+
 
         switch (IPClass) {
             case "A": {
                 hostPortion = Arrays.copyOfRange(bin, 9, 32);
-
+                CIDR = "/8";
                 subnet = "255.0.0.0";
+                hostsPerSubnet = Math.pow(2, 24) - 2;
                 break;
             }
             case "B": {
                 hostPortion = Arrays.copyOfRange(bin, 17, 32);
-
+                CIDR = "/16";
                 subnet = "255.255.0.0";
+                hostsPerSubnet = Math.pow(2, 16) - 2;
                 break;
             }
             case "C": {
                 hostPortion = Arrays.copyOfRange(bin, 25, 32);
-
+                CIDR = "/24";
                 subnet = "255.255.255.0";
+                hostsPerSubnet = Math.pow(2, 8) - 2;
                 break;
             }
 
@@ -82,18 +88,22 @@ public class Main {
 
 
 
-        System.out.println("Network Class: " + IPClass + "\n");
+        System.out.println("Network Class: " + IPClass);
 
-        System.out.println("Subnet Mask: " + subnet + "\n");
+        System.out.println("Subnet Mask: " + subnet);
+
+        System.out.println("CIDR : " + CIDR);
+
+        System.out.println("Hosts Per Subnet: " + (int)hostsPerSubnet);
 
         System.out.println("Network Address : " + decimalNetworkAddr[0]
-                + "." + decimalNetworkAddr[1] + "." + decimalNetworkAddr[2] + "." + decimalNetworkAddr[3] + "\n");
+                + "." + decimalNetworkAddr[1] + "." + decimalNetworkAddr[2] + "." + decimalNetworkAddr[3]);
 
         System.out.println("Broadcast Address : "
-                + decimalBroadcastAddr[0] + "." + decimalBroadcastAddr[1] + "." + decimalBroadcastAddr[2] + "." + decimalBroadcastAddr[3] + "\n");
+                + decimalBroadcastAddr[0] + "." + decimalBroadcastAddr[1] + "." + decimalBroadcastAddr[2] + "." + decimalBroadcastAddr[3]);
 
-        System.out.println("Bits in Host: " + bitsInHost + "\n");
-        System.out.println("Bits in Network: " + bitsInNetwork + "\n");
+        System.out.println("Bits in Host: " + bitsInHost);
+        System.out.println("Bits in Network: " + bitsInNetwork);
 
     }
 
