@@ -94,6 +94,23 @@ public class IPV4 {
         return (address);
     }
 
+    //This method takes an array that is intented to be the binary array,
+    //and converts it back to decimal. This is used for the netoword and broadcast addr.
+    public static int[] convertToDecimal (int[] binary)
+    {
+
+        int[] array = new int[4];
+        int set1, set2, set3, set4, counter;
+        set1 = set2 = set3 = set4 = 0;
+        counter = 7;
+
+        //Converting the first octet of binary digits to decimal.
+
+
+    }
+
+
+
 
     //This method finds that class of a given IP Address.
     public static String findClass(String givenIP)

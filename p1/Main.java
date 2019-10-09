@@ -9,9 +9,6 @@ public class Main {
         int i;
         String[] str = new String[4];
         int[] bin = new int[32];
-        int[] networkAddr = new int[32];
-        int[] broadcastAddr = new int[32];
-
 
 
         Scanner input =  new Scanner(System.in);
@@ -21,12 +18,15 @@ public class Main {
 
         str =  givenIp.split("\\.");
         bin = IPV4.convertToBinary(str);
+        String[] str1 = givenIp.split("/");
 
+        int[] networkAddr = new int[32];
+        int[] broadcastAddr = new int[32];
         int n = Integer.parseInt(str[1]);
         int t = 32 - n;
 
         //Getting the network address by going through the binary number.
-        for (i = 0; i <= 31; i++) {
+        for (i = 0; i >= (31 - t); i++) {
 
             networkAddr[i] = bin[i];
             broadcastAddr[i] = bin[i];
@@ -41,7 +41,7 @@ public class Main {
         // Setting the broadcast address, setting 32-n bits to 1
         for (i = 31; i > (31 - t); i--) {
 
-            broadcastAddr[i] = 0;
+            broadcastAddr[i] = 1;
         }
 
 
