@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int i;
         String[] str = new String[4];
         int[] bin = new int[32];
 
@@ -20,20 +19,23 @@ public class Main {
         String[] str1 = givenIp.split("/");
 
         String IPClass = IPV4.findClass(givenIp);
+        int[] hostPortion = new int[32];
+        int[] networkAddr = new int[32];
+        int[] broadcastAddr = new int[32];
 
         switch (IPClass) {
             case "A": {
-                int[] hostPortion = Arrays.copyOfRange(bin, 9, 32);
+                hostPortion = Arrays.copyOfRange(bin, 9, 32);
 
                 break;
             }
             case "B": {
-                int[] hostPortion = Arrays.copyOfRange(bin, 17, 32);
+                hostPortion = Arrays.copyOfRange(bin, 17, 32);
 
                 break;
             }
             case "C": {
-                int[] hostPortion = Arrays.copyOfRange(bin, 25, 32);
+                hostPortion = Arrays.copyOfRange(bin, 25, 32);
                 break;
             }
 
@@ -42,27 +44,18 @@ public class Main {
             }
         }
 
-        //Getting the network address by going through the binary number.
-        for (i = 0; i < 32; i++) {
+        //Copying the host portion into another array, so the host portion array is protected.
+        for(int i  = 0; i < hostPortion.length; i++)
+        {
+            networkAddr[i] = hostPortion[i];
+            broadcastAddr[i] = hostPortion[i];
 
-            
         }
 
-
-
-        // Set 32-n bits to 0
-        for (i = 31; i <= 31; i--) {
-
+       //Setting the digits of the host portion to 1 for the network address
+        for(int i = 0; i < networkAddr.length; i++)
+        {
             networkAddr[i] = 0;
-
-            if(i == 0) break;
-        }
-
-        // Setting the broadcast address, setting 32-n bits to 1
-        for (i = 31; i <= 31; i--) {
-
-            broadcastAddr[i] = 1;
-            if(i == 0) break;
         }
 
         //Calculating the subnet
@@ -81,7 +74,7 @@ public class Main {
         //System.out.println(Arrays.toString(bin));
 
 
-        System.out.println("Subnet: " + subnet[0] + "." + subnet[1] + "." + subnet[2] + "." + subnet[3] );
+        //ystem.out.println("Subnet: " + subnet[0] + "." + subnet[1] + "." + subnet[2] + "." + subnet[3] );
 
         System.out.println("Network Address : " + decimalNetworkAddr[0]
                 + "." + decimalNetworkAddr[1] + "." + decimalNetworkAddr[2] + "." + decimalNetworkAddr[3]);
