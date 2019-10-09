@@ -22,11 +22,12 @@ public class Main {
         int[] hostPortion = new int[32];
         int[] networkAddr = new int[32];
         int[] broadcastAddr = new int[32];
+        int bitsInHost;
+        int bitsInNetwork;
 
         switch (IPClass) {
             case "A": {
                 hostPortion = Arrays.copyOfRange(bin, 9, 32);
-
                 break;
             }
             case "B": {
@@ -44,6 +45,9 @@ public class Main {
             }
         }
 
+        bitsInHost = hostPortion.length + 1;
+        bitsInNetwork = 32 - hostPortion.length - 1;
+
         //Copying the host portion into another array, so the host portion array is protected.
         for(int i  = 0; i < hostPortion.length; i++)
         {
@@ -58,8 +62,7 @@ public class Main {
             networkAddr[i] = 0;
         }
 
-        //Calculating the subnet
-        int [] subnet = IPV4.convertToDecimal(bin);
+
 
         //Converting the network address to decimal
         int[] decimalNetworkAddr = IPV4.convertToDecimal(networkAddr);
@@ -69,12 +72,11 @@ public class Main {
 
 
 
-
-        System.out.println("IP Class: " + IPClass);
-        //System.out.println(Arrays.toString(bin));
+        System.out.println("Network Class: " + IPClass);
 
 
-        //ystem.out.println("Subnet: " + subnet[0] + "." + subnet[1] + "." + subnet[2] + "." + subnet[3] );
+
+        //System.out.println("Subnet: " + subnet[0] + "." + subnet[1] + "." + subnet[2] + "." + subnet[3] );
 
         System.out.println("Network Address : " + decimalNetworkAddr[0]
                 + "." + decimalNetworkAddr[1] + "." + decimalNetworkAddr[2] + "." + decimalNetworkAddr[3]);
@@ -82,7 +84,8 @@ public class Main {
         System.out.println("Broadcast Address : "
                 + decimalBroadcastAddr[0] + "." + decimalBroadcastAddr[1] + "." + decimalBroadcastAddr[2] + "." + decimalBroadcastAddr[3]);
 
-
+        System.out.println("Bits in Host: " + bitsInHost);
+        System.out.println("Bits in Network: " + bitsInNetwork);
 
     }
 
