@@ -94,18 +94,58 @@ public class IPV4 {
         return (address);
     }
 
-    //This method takes an array that is intented to be the binary array,
-    //and converts it back to decimal. This is used for the netoword and broadcast addr.
+    //This method takes an array that is intended to be the binary array,
+    //and converts it back to decimal. This is used for the network and broadcast addr.
     public static int[] convertToDecimal (int[] binary)
     {
 
-        int[] array = new int[4];
-        int set1, set2, set3, set4, counter;
+        int[] decimalAddr = new int[4];
+        int set1, set2, set3, set4, exponent;
         set1 = set2 = set3 = set4 = 0;
-        counter = 7;
+        exponent = 7;
 
         //Converting the first octet of binary digits to decimal.
+        for (int i = 0; i < 8; i++) {
 
+            set1 = set1 + (int)(Math.pow(2, exponent)) * binary[i];
+            exponent--;
+        }
+            exponent = 7;
+
+        //Converting the second octet of binary digits to decimal.
+        for (int i = 8; i < 16; i++) {
+
+            set2 = set2 + (int)(Math.pow(2, exponent)) * binary[i];
+            exponent--;
+        }
+
+        exponent = 7;
+
+
+        //Converting the third octet of binary digits to decimal.
+        for (int i = 16; i < 24; i++) {
+
+            set3 = set3 + (int)(Math.pow(2, exponent)) * binary[i];
+            exponent--;
+        }
+
+        exponent = 7;
+
+        //Converting the fourth octet of binary digits to decimal.
+        for (int i = 24; i < 32; i++) {
+
+            set4 = set4 + (int)(Math.pow(2, exponent)) * binary[i];
+            exponent--;
+        }
+
+        exponent = 7;
+
+        decimalAddr[0] = set1;
+        decimalAddr[1] = set2;
+        decimalAddr[2] = set3;
+        decimalAddr[3] = set4;
+
+        return(decimalAddr);
 
     }
 
