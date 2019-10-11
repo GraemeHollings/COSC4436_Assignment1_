@@ -1,6 +1,5 @@
 package p1;
 
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -8,13 +7,17 @@ public class Main {
 
     public static void main(String[] args) {
         String[] str = new String[4];
+
         int[] bin = new int[32];
         int[] hostPortion = new int[32];
         int[] networkAddr = new int[32];
         int[] broadcastAddr = new int[32];
+
         int bitsInHost;
         int bitsInNetwork;
+
         double hostsPerSubnet = 0;
+
         String subnet = "";
         String CIDR = "";
 
@@ -31,10 +34,24 @@ public class Main {
 
         switch (IPClass) {
             case "A": {
-                hostPortion = Arrays.copyOfRange(bin, 9, 32);
+                //hostPortion = Arrays.copyOfRange(bin, 9, 32);
                 CIDR = "/8";
                 subnet = "255.0.0.0";
                 hostsPerSubnet = Math.pow(2, 24) - 2;
+
+                for(int i = 0; i < 7; i++)
+                {
+                    networkAddr[i] = bin[i];
+                    broadcastAddr[i] = bin[i];
+
+                }
+
+                for(int i = 8; i < bin.length; i++ )
+                {
+                    networkAddr[i] = 0;
+                    broadcastAddr[i] = 1;
+                }
+
                 break;
             }
             case "B": {
@@ -42,6 +59,21 @@ public class Main {
                 CIDR = "/16";
                 subnet = "255.255.0.0";
                 hostsPerSubnet = Math.pow(2, 16) - 2;
+
+                for(int i = 0; i < 15; i++)
+                {
+                    networkAddr[i] = bin[i];
+                    broadcastAddr[i] = bin[i];
+
+                }
+
+                for(int i = 16; i < bin.length; i++ )
+                {
+                    networkAddr[i] = 0;
+                    broadcastAddr[i] = 1;
+                }
+
+
                 break;
             }
             case "C": {
@@ -49,6 +81,20 @@ public class Main {
                 CIDR = "/24";
                 subnet = "255.255.255.0";
                 hostsPerSubnet = Math.pow(2, 8) - 2;
+
+                for(int i = 0; i < 23; i++)
+                {
+                    networkAddr[i] = bin[i];
+                    broadcastAddr[i] = bin[i];
+
+                }
+
+                for(int i = 24; i < bin.length; i++ )
+                {
+                    networkAddr[i] = 0;
+                    broadcastAddr[i] = 1;
+                }
+
                 break;
             }
 
@@ -59,26 +105,6 @@ public class Main {
 
         bitsInHost = hostPortion.length + 1;
         bitsInNetwork = 32 - hostPortion.length - 1;
-
-        //Copying the host portion into another array, so the host portion array is protected.
-        for(int i  = 0; i < hostPortion.length; i++)
-        {
-            networkAddr[i] = hostPortion[i];
-            broadcastAddr[i] = hostPortion[i];
-
-        }
-
-       //Setting the digits of the host portion to 1 for the network address
-        for(int i = 0; i < networkAddr.length; i++)
-        {
-            networkAddr[i] = 0;
-        }
-
-        for(int i = 0; i < broadcastAddr.length; i++)
-        {
-            broadcastAddr[i] = 1;
-        }
-
 
         //Converting the network address to decimal
         int[] decimalNetworkAddr = IPV4.convertToDecimal(networkAddr);
